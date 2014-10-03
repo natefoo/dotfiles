@@ -1,0 +1,11 @@
+# Clever: https://stackoverflow.com/questions/21266948/use-git-to-manage-home-directory
+
+# Ignore everything
+*
+
+# But not these files...
+!*.vimrc
+!*.vim/
+!*.zshrc
+!*.zshenv
+!.gitignore

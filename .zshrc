@@ -170,6 +170,43 @@ function dotpath() {
     fi
 }
 
+function ldapedit() {
+    case "$1" in
+    "")
+        echo 'usage: ldapedit <ou>'
+        ;;
+    *)
+        EDITOR=vim ldapvi -Y GSSAPI -h ldap-1 -b ou=$1,dc=bx,dc=psu,dc=edu
+        ;;
+    esac
+}
+
+# TODO: galaxyproject.org
+function ipmi() {
+    case "$2" in
+        "")
+            echo 'usage: ipmi <host> sol'
+            echo 'usage: ipmi <host> <pass> <pxe|off|on|reset|ipmitool command ...>'
+            ;;
+        sol)
+            ipmitool -I lanplus -H $1 -U root sol activate
+            ;;
+        *)
+            case "$3" in
+                "")
+                    echo 'usage: ipmi <host> sol'
+                    echo 'usage: ipmi <host> <pass> <pxe|off|on|reset|ipmitool command ...>'
+                    ;;
+                pxe)   ipmitool -I lanplus -H $1 -U root -P $2 chassis bootdev pxe  ;;
+                off)   ipmitool -I lanplus -H $1 -U root -P $2 chassis power off    ;;
+                on)    ipmitool -I lanplus -H $1 -U root -P $2 chassis power on     ;;
+                reset) ipmitool -I lanplus -H $1 -U root -P $2 chassis power reset  ;;
+                *)     ipmitool -I lanplus -H $1 -U root -P $2 $*[3,$#-1]           ;;
+            esac
+            ;;
+    esac
+}
+
 ## Kerberos env support
 typeset -A KENVS
 [ -z "$DEFAULT_KRB5CCNAME" ] && export DEFAULT_KRB5CCNAME=`klist 2>&1 | egrep ' (cache|No ticket file):' | awk '{print $NF}'`

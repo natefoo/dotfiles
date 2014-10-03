@@ -84,10 +84,19 @@ export SYSARCH SYS REL ARCH
 LS='ls'
 PATH='/usr/bin'
 
-export CLICOLOR="1"
-export LSCOLORS="ExFxCxDxBxegedabagacad"
-append_path /bin /usr/sbin /sbin
-prepend_path /opt/local/bin /usr/local/bin
+case "$SYS" in
+    linux)
+        LS="ls --color"
+        append_path /bin /usr/sbin /sbin
+        ;;
+    darwin)
+        export CLICOLOR="1"
+        export LSCOLORS="ExFxCxDxBxegedabagacad"
+        append_path /bin /usr/sbin /sbin
+        prepend_path /usr/local/bin
+        ;;
+esac
+
 prepend_path $HOME/bin $HOME/bin/$SYSARCH
 
 # startup virtualenv-burrito

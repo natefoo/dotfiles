@@ -1,0 +1,6 @@
+// Make the left Ctrl key a Super.
+partial hidden modifier_keys
+xkb_symbols "lctrl_super" {
+    key <LCTL> { [ Super_L ] };
+    modifier_map Mod4 { <LCTL> };
+};

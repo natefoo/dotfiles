@@ -110,7 +110,7 @@ KENV='default'
 [ -z "$KRB5PRINC" ] && set_krb5princ
 [ -z "$AFSID" ] && set_afsid
 case "$TERM" in
-    xterm|xtermc|xterm-color|rxvt-unicode)
+    xterm|xtermc|xterm-color|rxvt-unicode|linux)
         precmd() {
             if [ -n "$TITLE" ]; then
                 print -Pn "\e]0;$TITLE: %n@%m: %~\a"

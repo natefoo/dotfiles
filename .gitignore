@@ -4,6 +4,7 @@
 *
 
 # But not these files...
+!*.gnupg
 !*.vimrc
 !*.vim/
 !*.zshrc

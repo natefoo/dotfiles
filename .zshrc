@@ -241,3 +241,23 @@ function penv () {
         PASSENV=$env
     fi
 }
+
+## gpg-agent
+shorthost=$(hostname -s)
+gpg_hosts=(weyerbacher fanboy galaxy01)
+gpg_agent_info="${HOME}/.gnupg/gpg-agent-info-$shorthost"
+
+start_gpg_agent() {
+    eval $(gpg-agent --daemon --write-env-file $gpg_agent_info)
+}
+
+# http://stackoverflow.com/questions/5203665/zsh-check-if-string-is-in-array
+if [[ ${gpg_hosts[(i)$shorthost]} -le ${#gpg_hosts} ]]; then
+    if [ -f $gpg_agent_info ]; then
+        . $gpg_agent_info
+        export GPG_AGENT_INFO
+        [ "`ps -p ${(z)${(ps#:#)GPG_AGENT_INFO}[-2]} -o comm=`" != 'gpg-agent' ] && start_gpg_agent
+    else
+        start_gpg_agent
+    fi
+fi

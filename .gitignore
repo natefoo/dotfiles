@@ -4,9 +4,10 @@
 *
 
 # But not these files...
-!*.gnupg
-!*.vimrc
-!*.vim/
-!*.zshrc
-!*.zshenv
+!.gnupg
+!.vimrc
+!.vim/
+!.zshrc
+!.zshenv
 !.gitignore
+!.gitconfig

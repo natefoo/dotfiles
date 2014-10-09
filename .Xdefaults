@@ -1,0 +1,22 @@
+*background:	#000000000000
+*foreground:	#AAAAAAAAAAAA
+!*Font:	-dt-interface user-medium-r-normal-s*-*-*-*-*-*-*-*-*
+!*Font:	-misc-fixed-medium-r-normal--13-120-75-75-c-80-iso10646-1
+!*Font: -*-fixed-medium-*-semicondensed-*-8-*-*-*-*-*-*-*
+!xterm*font: -*-fixed-medium-r-semicondensed-*-12-*-*-*-*-*-iso10646-*
+!xterm*font: -*-clean-medium-r-*-*-12-*-*-*-*-*-iso10646-*
+!xterm*font: -misc-fixed-medium-r-semicondensed-*-12-110-75-75-c-60-iso10646-1
+!UXTerm*Font: -misc-fixed-medium-r-semicondensed--13-*-*-*-*-*-iso10646-1
+
+UXTerm*Font: -efont-fixed-medium-r-normal-*-12-*-*-*-*-*-iso10646-1
+UXTerm*Font2: -efont-fixed-medium-r-normal-*-10-*-*-*-*-*-iso10646-1
+UXTerm*Font3: -efont-fixed-medium-r-normal-*-14-*-*-*-*-*-iso10646-1
+UXTerm*Font4: -efont-fixed-medium-r-normal-*-16-*-*-*-*-*-iso10646-1
+UXTerm*Font5: -misc-fixed-medium-r-normal--18-*-*-*-*-*-iso10646-1
+UXTerm*Font6: -efont-fixed-medium-r-normal-*-24-*-*-*-*-*-iso10646-1
+
+! in case you turn it back on
+!URxvt.scrollstyle: plain
+URxvt.scrollBar: false
+
+!xterm*faceName: Inconsolata:size=8

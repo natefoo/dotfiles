@@ -181,6 +181,40 @@ function ldapedit() {
     esac
 }
 
+function ldapedit() {
+    # ldapvi -Y EXTERNAL -h ldapi:/// -b cn=config
+    case "$1" in
+    "")
+        echo 'usage: ldapedit <ou>'
+        echo 'usage: ldapedit config <server>'
+        ;;
+    config)
+        case "$KRB5REALM" in
+            BX.PSU.EDU)
+                EDITOR=vim ldapvi -Y GSSAPI -h $2.bx.psu.edu -b cn=config
+                ;;
+            GALAXYPROJECT.ORG)
+                EDITOR=vim ldapvi -Y GSSAPI -h $2.galaxyproject.org -b cn=config
+                ;;
+            *)
+                echo "error: get tickets"
+                ;;
+        esac
+        ;;
+    *)
+        case "$KRB5REALM" in
+            BX.PSU.EDU)
+                EDITOR=vim ldapvi -Y GSSAPI -h ldap-1.bx.psu.edu -b ou=$1,dc=galaxyproject,dc=org
+                ;;
+            GALAXYPROJECT.ORG)
+                EDITOR=vim ldapvi -Y GSSAPI -h ldap1.galaxyproject.org -b ou=$1,dc=galaxyproject,dc=org
+                ;;
+        esac
+        ;;
+    esac
+}
+
+
 # TODO: galaxyproject.org
 function ipmi() {
     case "$2" in

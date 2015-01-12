@@ -204,7 +204,7 @@ function ldapedit() {
     *)
         case "$KRB5REALM" in
             BX.PSU.EDU)
-                EDITOR=vim ldapvi -Y GSSAPI -h ldap-1.bx.psu.edu -b ou=$1,dc=galaxyproject,dc=org
+                EDITOR=vim ldapvi -Y GSSAPI -h ldap-1.bx.psu.edu -b ou=$1,dc=bx,dc=psu,dc=edu
                 ;;
             GALAXYPROJECT.ORG)
                 EDITOR=vim ldapvi -Y GSSAPI -h ldap1.galaxyproject.org -b ou=$1,dc=galaxyproject,dc=org

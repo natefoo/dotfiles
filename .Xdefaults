@@ -21,3 +21,6 @@ URxvt.scrollBar: false
 URxvt.pastableTabs: true
 
 !xterm*faceName: Inconsolata:size=8
+
+URxvt*loginShell: true
+

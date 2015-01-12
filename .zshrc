@@ -51,8 +51,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 
 ## Prompt magic support
 set_krb5princ() {
-    KRB5PRINC=`klist 2>/dev/null | grep ^"Default principal: " | awk '{print $NF}'`
-    [ -z "$KRB5PRINC" ] && KRB5PRINC=`klist 2>/dev/null | grep ^"        Principal: " | awk '{print $NF}'`
+    KRB5PRINC=`klist 2>/dev/null | grep "^Default principal: " | awk '{print $NF}'`
+    [ -z "$KRB5PRINC" ] && KRB5PRINC=`klist 2>/dev/null | grep "^        Principal: " | awk '{print $NF}'`
     t_arr=(${(s:@:)KRB5PRINC})
     KRB5USER=$t_arr[1]
     KRB5REALM=$t_arr[2]

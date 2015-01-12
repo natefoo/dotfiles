@@ -97,9 +97,10 @@ case "$SYS" in
         ;;
 esac
 
-prepend_path $HOME/bin $HOME/bin/$SYSARCH
-
 # startup virtualenv-burrito
 if [ -f $HOME/.venvburrito/startup.sh ]; then
     . $HOME/.venvburrito/startup.sh
 fi
+
+prepend_path $HOME/bin $HOME/bin/$SYSARCH $HOME/.rvm/bin
+

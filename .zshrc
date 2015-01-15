@@ -31,6 +31,11 @@ alias akr='kinit -R ; aklog'
 alias central='hg clone ssh://hg@bitbucket.org/galaxy/galaxy-central'
 alias qdiff='hg diff -r $(hg parents -r qbase --template "#rev#") -r qtip'
 
+# courtesy dave b.
+grepvi() {
+    vim `grep -Hni "$1" "$2" | awk -F ":" '{print $1 " +" $2}' | head -n 1`
+}
+
 # get homebrew zsh functions
 if [ -d "/usr/local/share/zsh/site-functions" ]; then
     fpath+=(/usr/local/share/zsh/site-functions)

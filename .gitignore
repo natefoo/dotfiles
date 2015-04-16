@@ -14,3 +14,5 @@
 !.xkb/
 !.Xdefaults
 !.hgrc
+!.bash_profile
+!.bashrc

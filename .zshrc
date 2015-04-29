@@ -31,6 +31,11 @@ alias akr='kinit -R ; aklog'
 alias central='hg clone ssh://hg@bitbucket.org/galaxy/galaxy-central'
 alias qdiff='hg diff -r $(hg parents -r qbase --template "#rev#") -r qtip'
 
+# courtesy dave b.
+grepvi() {
+    vim `grep -Hni "$1" "$2" | awk -F ":" '{print $1 " +" $2}' | head -n 1`
+}
+
 # get homebrew zsh functions
 if [ -d "/usr/local/share/zsh/site-functions" ]; then
     fpath+=(/usr/local/share/zsh/site-functions)
@@ -51,8 +56,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 
 ## Prompt magic support
 set_krb5princ() {
-    KRB5PRINC=`klist 2>/dev/null | grep ^"Default principal: " | awk '{print $NF}'`
-    [ -z "$KRB5PRINC" ] && KRB5PRINC=`klist 2>/dev/null | grep ^"        Principal: " | awk '{print $NF}'`
+    KRB5PRINC=`klist 2>/dev/null | grep "^Default principal: " | awk '{print $NF}'`
+    [ -z "$KRB5PRINC" ] && KRB5PRINC=`klist 2>/dev/null | grep "^        Principal: " | awk '{print $NF}'`
     t_arr=(${(s:@:)KRB5PRINC})
     KRB5USER=$t_arr[1]
     KRB5REALM=$t_arr[2]
@@ -180,6 +185,40 @@ function ldapedit() {
         ;;
     esac
 }
+
+function ldapedit() {
+    # ldapvi -Y EXTERNAL -h ldapi:/// -b cn=config
+    case "$1" in
+    "")
+        echo 'usage: ldapedit <ou>'
+        echo 'usage: ldapedit config <server>'
+        ;;
+    config)
+        case "$KRB5REALM" in
+            BX.PSU.EDU)
+                EDITOR=vim ldapvi -Y GSSAPI -h $2.bx.psu.edu -b cn=config
+                ;;
+            GALAXYPROJECT.ORG)
+                EDITOR=vim ldapvi -Y GSSAPI -h $2.galaxyproject.org -b cn=config
+                ;;
+            *)
+                echo "error: get tickets"
+                ;;
+        esac
+        ;;
+    *)
+        case "$KRB5REALM" in
+            BX.PSU.EDU)
+                EDITOR=vim ldapvi -Y GSSAPI -h ldap-1.bx.psu.edu -b ou=$1,dc=bx,dc=psu,dc=edu
+                ;;
+            GALAXYPROJECT.ORG)
+                EDITOR=vim ldapvi -Y GSSAPI -h ldap1.galaxyproject.org -b ou=$1,dc=galaxyproject,dc=org
+                ;;
+        esac
+        ;;
+    esac
+}
+
 
 # TODO: galaxyproject.org
 function ipmi() {

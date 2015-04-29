@@ -30,6 +30,11 @@ alias akr='kinit -R ; aklog'
 # hg/galaxy aliases
 alias central='hg clone ssh://hg@bitbucket.org/galaxy/galaxy-central'
 alias qdiff='hg diff -r $(hg parents -r qbase --template "#rev#") -r qtip'
+alias stage='pass ansible/vault/usegalaxy | ansible-playbook -i stage/inventory galaxy.yml --vault-password-file=/bin/cat'
+alias production='pass ansible/vault/usegalaxy | ansible-playbook -i production/inventory galaxy.yml --vault-password-file=/bin/cat'
+
+# slurm aliases
+alias sqj="squeue -o '%i %P %2t %.10M %j'"
 
 # courtesy dave b.
 grepvi() {

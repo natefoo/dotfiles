@@ -19,6 +19,8 @@ UXTerm*Font6: -efont-fixed-medium-r-normal-*-24-*-*-*-*-*-iso10646-1
 !URxvt.scrollstyle: plain
 URxvt.scrollBar: false
 URxvt.pastableTabs: true
+URxvt.saveLines: 4096
+URxvt.scrollTtyOutput: false
 
 !xterm*faceName: Inconsolata:size=8
 

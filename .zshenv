@@ -88,6 +88,7 @@ case "$SYS" in
     linux)
         LS="ls --color"
         append_path /bin /usr/sbin /sbin
+        prepend_path /usr/local/bin
         ;;
     darwin)
         export CLICOLOR="1"
@@ -97,9 +98,24 @@ case "$SYS" in
         ;;
 esac
 
+# Convert /etc/os-release to env vars
+eval $(sed -re 's/(^[A-Z_]+)(=.*)/OS_RELEASE_\1\2/' /etc/os-release)
+
+case "$OS_RELEASE_ID" in
+    debian)
+        VENVBURRITO_STARTUP="$HOME/.venvburrito-stretch/startup.sh"
+        ;;
+    ubuntu)
+        VENVBURRITO_STARTUP="$HOME/.venvburrito-trusty/startup.sh"
+        ;;
+    *)
+        VENVBURRITO_STARTUP="$HOME/.venvburrito/startup.sh"
+        ;;
+esac
+
 # startup virtualenv-burrito
-if [ -f $HOME/.venvburrito/startup.sh ]; then
-    . $HOME/.venvburrito/startup.sh
+if [ -f $VENVBURRITO_STARTUP ]; then
+    . $VENVBURRITO_STARTUP
 fi
 
 prepend_path $HOME/bin $HOME/bin/$SYSARCH $HOME/.rvm/bin

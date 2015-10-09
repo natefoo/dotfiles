@@ -120,7 +120,7 @@ KENV='default'
 [ -z "$KRB5PRINC" ] && set_krb5princ
 [ -z "$AFSID" ] && set_afsid
 case "$TERM" in
-    xterm|xtermc|xterm-color|rxvt-unicode|linux)
+    xterm|xtermc|xterm-color|rxvt-unicode|linux|rxvt-unicode-256color)
         precmd() {
             if [ -n "$TITLE" ]; then
                 print -Pn "\e]0;$TITLE: %n@%m: %~\a"
@@ -291,8 +291,12 @@ shorthost=$(hostname -s)
 gpg_hosts=(weyerbacher fanboy galaxy01)
 gpg_agent_info="${HOME}/.gnupg/gpg-agent-info-$shorthost"
 
+# Not sure why this suddenly became neccessary on stretch, but ok
+GPG_TTY=$(tty)
+export GPG_TTY
+
 start_gpg_agent() {
-    eval $(gpg-agent --daemon --write-env-file $gpg_agent_info)
+    eval $(gpg-agent --daemon --write-env-file $gpg_agent_info --log-file ${HOME}/.gnupg/gpg-agent.log)
 }
 
 # http://stackoverflow.com/questions/5203665/zsh-check-if-string-is-in-array

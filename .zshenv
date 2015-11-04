@@ -101,15 +101,13 @@ esac
 # Convert /etc/os-release to env vars
 eval $(sed -re 's/(^[A-Z_]+)(=.*)/OS_RELEASE_\1\2/' /etc/os-release)
 
+VENVBURRITO_STARTUP="$HOME/.venvburrito/startup.sh"
 case "$OS_RELEASE_ID" in
     debian)
-        VENVBURRITO_STARTUP="$HOME/.venvburrito-stretch/startup.sh"
+        [ -d "$HOME/.venvburrito-stretch" ] && VENVBURRITO_STARTUP="$HOME/.venvburrito-stretch/startup.sh"
         ;;
     ubuntu)
-        VENVBURRITO_STARTUP="$HOME/.venvburrito-trusty/startup.sh"
-        ;;
-    *)
-        VENVBURRITO_STARTUP="$HOME/.venvburrito/startup.sh"
+        [ -d "$HOME/.venvburrito-trusty" ] && VENVBURRITO_STARTUP="$HOME/.venvburrito-trusty/startup.sh"
         ;;
 esac
 

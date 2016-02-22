@@ -1,1 +1,1 @@
-tab-indent.vim
+two-space-indent.vim

@@ -99,7 +99,7 @@ case "$SYS" in
 esac
 
 # Convert /etc/os-release to env vars
-eval $(sed -re 's/(^[A-Z_]+)(=.*)/OS_RELEASE_\1\2/' /etc/os-release)
+[ -f /etc/os-release ] && eval $(sed -re 's/(^[A-Z_]+)(=.*)/OS_RELEASE_\1\2/' /etc/os-release)
 
 VENVBURRITO_STARTUP="$HOME/.venvburrito/startup.sh"
 case "$OS_RELEASE_ID" in

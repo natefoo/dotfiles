@@ -292,7 +292,11 @@ function penv () {
 }
 
 ## gpg-agent
-shorthost=$(hostname -s)
+if command -v scutil >/dev/null; then
+    shorthost=$(scutil --get LocalHostName)
+else
+    shorthost=$(hostname -s)
+fi
 gpg_hosts=(weyerbacher fanboy galaxy01)
 gpg_agent_info="${HOME}/.gnupg/gpg-agent-info-$shorthost"
 

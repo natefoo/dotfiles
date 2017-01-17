@@ -57,6 +57,9 @@ endfunction
 map <F4> :call SwitchTabType()<CR>
 map <F3> :call SwitchPasteMode()<CR>
 
+" The TouchBar MBP arrows are awful
+imap ;; <esc>
+
 call SpaceTabs()
 
 " Stolen from Fedora

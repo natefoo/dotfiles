@@ -13,6 +13,7 @@
 !.gitconfig
 !.xkb/
 !.Xdefaults
+!.xsessionrc
 !.hgrc
 !.bash_profile
 !.bashrc

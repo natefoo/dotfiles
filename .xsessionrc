@@ -8,8 +8,8 @@
 # make Caps Lock a Ctrl key and make Ctrl_L a Super key
 setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
 
-case ${HOST:-$(hostname)} in
-    weyerbacher)
+case ${HOST:-$(hostname -s)} in
+    weyerbacher.bx.psu.edu|weyerbacher)
         # enable right display
         xrandr --output HDMI-2 --mode 1920x1200 --right-of DP-1 --rotate left
         ;;

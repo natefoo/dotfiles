@@ -7,11 +7,14 @@ bindkey -v
 export PAGER='less'
 export EDITOR='vi'
 
-# this was useful on Solaris...
-#[ -n `whence vim` ] && export EDITOR='vim' || export EDITOR='vi'
+if command -v scutil >/dev/null; then
+    SHORTHOST=$(scutil --get LocalHostName)
+else
+    SHORTHOST=$(hostname -s)
+fi
 
 # this was not initially necessary, but now it is
-[ "$HOST" = "weyerbacher" -a "$DISPLAY" = ":0" ] && export PASSWORD_STORE_X_SELECTION='primary'
+[ "$SHORTHOST" = "weyerbacher" -a "$DISPLAY" = ":0" ] && export PASSWORD_STORE_X_SELECTION='primary'
 
 # may not be suitable for all
 #stty erase 
@@ -294,13 +297,8 @@ function penv () {
 
 if [ -z "$GPG_AGENT_INFO" ]; then
     ## gpg-agent
-    if command -v scutil >/dev/null; then
-        shorthost=$(scutil --get LocalHostName)
-    else
-        shorthost=$(hostname -s)
-    fi
     gpg_hosts=(fanboy galaxy01)
-    gpg_agent_info="${HOME}/.gnupg/gpg-agent-info-$shorthost"
+    gpg_agent_info="${HOME}/.gnupg/gpg-agent-info-$SHORTHOST"
 
     # Not sure why this suddenly became neccessary on stretch, but ok
     GPG_TTY=$(tty)
@@ -311,7 +309,7 @@ if [ -z "$GPG_AGENT_INFO" ]; then
     }
 
     # http://stackoverflow.com/questions/5203665/zsh-check-if-string-is-in-array
-    if [[ ${gpg_hosts[(i)$shorthost]} -le ${#gpg_hosts} ]]; then
+    if [[ ${gpg_hosts[(i)$SHORTHOST]} -le ${#gpg_hosts} ]]; then
         if [ -f $gpg_agent_info ]; then
             . $gpg_agent_info
             export GPG_AGENT_INFO

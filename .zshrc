@@ -319,3 +319,43 @@ if [ -z "$GPG_AGENT_INFO" ]; then
         fi
     fi
 fi
+
+ansible-env () {
+	local env envs playbook playbooks
+	if [ -z "$1" -o ! -d "env/$1" ]
+	then
+		for env in env/*
+		do
+			env=$(basename $env)
+			[ "$env" = 'common' ] && continue
+			[ -z "$envs" ] && envs="$env"  || envs="$envs|$env"
+		done
+		echo "usage: ansible-env $envs <operation>"
+		return 1
+	else
+		env="$1"
+		shift
+	fi
+	if [ -z "$1" -o ! -f "env/${env}/${1}.yml" ]
+	then
+		for playbook in env/${env}/*.yml
+		do
+			playbook=$(basename $playbook .yml)
+			echo "$playbook" | grep --color=auto -q '^_' && continue
+			[ -z "$playbooks" ] && playbooks="$playbook"  || playbooks="$playbooks|$playbook"
+		done
+		echo "usage: ansible-env $env $playbooks"
+		return 1
+	else
+		op="$1"
+		shift
+	fi
+	case $(basename $PWD) in
+		(*usegalaxy*) parent=usegalaxy  ;;
+		(*infrastructure*) parent=infrastructure  ;;
+		(*) echo 'Cannot determine playbook directory (are you running from the root of the playbook repo?)'
+			return 1 ;;
+	esac
+	playbook=env/${env}/${op}.yml
+	pass ansible/vault/${parent} | ansible-playbook -i env/${env}/inventory $playbook --vault-password=/bin/cat "$@"
+}

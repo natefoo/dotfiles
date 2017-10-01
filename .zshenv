@@ -101,20 +101,14 @@ esac
 # Convert /etc/os-release to env vars
 [ -f /etc/os-release ] && eval $(sed -re 's/(^[A-Z_]+)(=.*)/OS_RELEASE_\1\2/' /etc/os-release)
 
-VENVBURRITO_STARTUP="$HOME/.venvburrito/startup.sh"
-case "$OS_RELEASE_ID" in
-    debian)
-        [ -d "$HOME/.venvburrito-stretch" ] && VENVBURRITO_STARTUP="$HOME/.venvburrito-stretch/startup.sh"
-        ;;
-    ubuntu)
-        [ -d "$HOME/.venvburrito-trusty" ] && VENVBURRITO_STARTUP="$HOME/.venvburrito-trusty/startup.sh"
-        ;;
-esac
+# use pyenv for installing multiple versions, but don't use its heavy handed environment hacking
+export PYENV_ROOT="$HOME/.pyenv"
+prepend_path "$PYENV_ROOT/bin"
 
-# startup virtualenv-burrito
-if [ -f $VENVBURRITO_STARTUP ]; then
-    . $VENVBURRITO_STARTUP
-fi
+# use virtualenvwrapper for venv management
+export WORKON_HOME="$HOME/.virtualenvs"
+VIRTUALENVWRAPPER_PYTHON="$HOME/.venvwrapper/bin/python"
+. "$HOME/.venvwrapper/bin/virtualenvwrapper.sh"
 
 prepend_path $HOME/bin $HOME/bin/$SYSARCH $HOME/.rvm/bin
 

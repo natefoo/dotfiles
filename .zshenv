@@ -101,14 +101,28 @@ esac
 # Convert /etc/os-release to env vars
 [ -f /etc/os-release ] && eval $(sed -re 's/(^[A-Z_]+)(=.*)/OS_RELEASE_\1\2/' /etc/os-release)
 
+venvsetup() {
+    local tmpdir=$(mktemp -d)
+    curl https://pypi.python.org/packages/d4/0c/9840c08189e030873387a73b90ada981885010dd9aea134d6de30cd24cb8/virtualenv-15.1.0.tar.gz | tar zxf - -C "$tmpdir"
+    python $tmpdir/virtualenv-15.1.0/virtualenv.py $HOME/.venvwrapper
+    [ -d "$tmpdir" ] && rm -rf "$tmpdir"
+    $HOME/.venvwrapper/bin/pip install virtualenv virtualenvwrapper
+    [ -d "$HOME/bin" ] || mkdir "$HOME/bin"
+    ln -s ../.venvwrapper/bin/virtualenv $HOME/bin
+}
+
 # use pyenv for installing multiple versions, but don't use its heavy handed environment hacking
 export PYENV_ROOT="$HOME/.pyenv"
 prepend_path "$PYENV_ROOT/bin"
 
 # use virtualenvwrapper for venv management
-export WORKON_HOME="$HOME/.virtualenvs"
-VIRTUALENVWRAPPER_PYTHON="$HOME/.venvwrapper/bin/python"
-. "$HOME/.venvwrapper/bin/virtualenvwrapper.sh"
+if [ -f "$HOME/.venvwrapper/bin/virtualenvwrapper.sh" ]; then
+    export WORKON_HOME="$HOME/.virtualenvs"
+    VIRTUALENVWRAPPER_PYTHON="$HOME/.venvwrapper/bin/python"
+    . "$HOME/.venvwrapper/bin/virtualenvwrapper.sh"
+else
+    echo 'run `venvsetup` to set up virtualenvwrapper'
+fi
 
 prepend_path $HOME/bin $HOME/bin/$SYSARCH $HOME/.rvm/bin
 

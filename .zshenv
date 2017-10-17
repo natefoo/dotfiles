@@ -94,7 +94,7 @@ case "$SYS" in
         export CLICOLOR="1"
         export LSCOLORS="ExFxCxDxBxegedabagacad"
         append_path /bin /usr/sbin /sbin
-        prepend_path /usr/local/bin
+        prepend_path /usr/local/bin /usr/local/texlive/2016/bin/x86_64-darwin
         ;;
 esac
 

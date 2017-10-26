@@ -10,3 +10,5 @@
     lg = !"git lg1"
 [color]
 	ui = auto
+[rerere]
+	enabled = false

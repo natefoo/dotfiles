@@ -14,7 +14,13 @@ else
 fi
 
 # this was not initially necessary, but now it is
-[ "$SHORTHOST" = "weyerbacher" -a "$DISPLAY" = ":0" ] && export PASSWORD_STORE_X_SELECTION='primary'
+if [ "$DISPLAY" = ':0' ]; then
+    case $SHORTHOST in
+        weyerbacher|sokolov)
+            export PASSWORD_STORE_X_SELECTION='primary'
+            ;;
+    esac
+fi
 
 # may not be suitable for all
 #stty erase 

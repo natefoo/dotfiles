@@ -366,3 +366,34 @@ ansible-env() {
     playbook=env/${env}/${op}.yml
     pass ansible/vault/${parent} | ansible-playbook -i env/${env}/inventory $playbook --vault-password=/bin/cat "$@"
 }
+
+# travis autocompletion (if installed)
+[ -f /home/nate/.travis/travis.sh ] && source /home/nate/.travis/travis.sh
+
+# Multi conda install
+CONDAS_HOME="$HOME/.condas"
+
+function useconda() {
+    if [ -f "$CONDAS_HOME/$1/etc/profile.d/conda.sh" ]; then
+        . "$CONDAS_HOME/$1/etc/profile.d/conda.sh"
+    else
+        PATH="$CONDAS_HOME/$1/bin:$PATH"
+    fi
+}
+
+function _useconda() {
+    reply=( $(_useconda_complete) )
+}
+
+function _useconda_complete {
+    # stolen from venvwrapper
+    [ -d "$CONDAS_HOME" ] || return 1
+    (builtin \cd -q "$CONDAS_HOME" && echo */bin/conda) 2>/dev/null \
+        | command \tr "\n" " " \
+        | command \sed "s|/bin/conda |/|g" \
+        | command \tr "/" "\n" \
+        | command \sed "/^\s*$/d" \
+        | (unset GREP_OPTIONS; command \egrep -v '^\*$') 2>/dev/null
+}
+
+compctl -K _useconda useconda

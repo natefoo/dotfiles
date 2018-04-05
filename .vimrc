@@ -7,6 +7,8 @@ filetype plugin on
 filetype indent on
 set autoindent
 
+set textwidth=120
+
 function TwoSpaceTabs()
     set tabstop=2
     set shiftwidth=2
@@ -54,6 +56,17 @@ function SwitchPasteMode()
     endif
 endfunction
 
+function ToggleWrap()
+    if &formatoptions =~ "t"
+        set formatoptions-=t
+        echo "Automatic wrapping OFF"
+    else
+        set formatoptions+=t
+        echo "Automatic wrapping ON"
+    endif
+endfunction
+
+map <F5> :call ToggleWrap()<CR>
 map <F4> :call SwitchTabType()<CR>
 map <F3> :call SwitchPasteMode()<CR>
 

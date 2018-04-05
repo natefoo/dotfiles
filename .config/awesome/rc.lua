@@ -337,9 +337,9 @@ globalkeys = awful.util.table.join(
               {description = "show the menubar", group = "launcher"}),
 
     -- Media hotkeys
-    awful.key({ }, "F7",                      function () awful.util.spawn("cmus-remote -r") end),
-    awful.key({ }, "F8",                      function () awful.util.spawn("/home/nate/bin/cmus-toggle-play") end),
-    awful.key({ }, "F9",                      function () awful.util.spawn("cmus-remote -n") end),
+    awful.key({ }, "F7",                      function () awful.util.spawn("cmus-remote --prev") end),
+    awful.key({ }, "F8",                      function () awful.util.spawn("cmus-remote --pause") end),
+    awful.key({ }, "F9",                      function () awful.util.spawn("cmus-remote --next") end),
     awful.key({ }, "F10",                     function () awful.util.spawn("amixer set Master toggle") end),
     awful.key({ }, "F11",                     function () awful.util.spawn("amixer set Master 2dB-") end),
     awful.key({ }, "F12",                     function () awful.util.spawn("amixer set Master 2dB+") end)

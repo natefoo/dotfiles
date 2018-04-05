@@ -374,9 +374,21 @@ ansible-env() {
 CONDAS_HOME="$HOME/.condas"
 
 function useconda() {
+    if [ "$(whence -f conda)" = "conda: function" ]; then
+        unhash -f _conda_hashr _conda_activate _conda_deactivate _conda_reactivate conda
+    fi
+    unset CONDA_EXE _CONDA_EXE _CONDA_ROOT _CONDA_SHELL_FLAVOR CONDA_SHLVL
+    unset CONDA_DEFAULT_ENV CONDA_PREFIX CONDA_PROMPT_MODIFIER CONDA_PYTHON_EXE
+    if [ -n "$_USECONDA_PATH" ]; then
+        PATH="$_USECONDA_PATH"
+        unset _USECONDA_PATH
+    fi
+    [ -z "$1" ] && return 0
     if [ -f "$CONDAS_HOME/$1/etc/profile.d/conda.sh" ]; then
+        _USECONDA_PATH="$PATH"
         . "$CONDAS_HOME/$1/etc/profile.d/conda.sh"
     else
+        _USECONDA_PATH="$PATH"
         PATH="$CONDAS_HOME/$1/bin:$PATH"
     fi
 }

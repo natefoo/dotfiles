@@ -173,7 +173,12 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.maximized(wallpaper, s, true)
+        -- If it's a solid color, use set
+        if wallpaper:sub(1, 1) == "#" then
+            gears.wallpaper.set(wallpaper, s, true)
+        else
+            gears.wallpaper.maximized(wallpaper, s, true)
+        end
     end
 end
 

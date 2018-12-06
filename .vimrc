@@ -1,3 +1,5 @@
+execute pathogen#infect()
+
 set modeline
 
 syntax on
@@ -88,3 +90,11 @@ endif
 " http://cedric.bosdonnat.free.fr/wordpress/?p=243
 au BufReadCmd *.docx,*.xlsx,*.pptx call zip#Browse(expand("<amatch>"))
 au BufReadCmd *.odt,*.ott,*.ods,*.ots,*.odp,*.otp,*.odg,*.otg call zip#Browse(expand("<amatch>"))
+
+" https://stackoverflow.com/questions/102384/using-vims-tabs-like-buffers
+"set hidden
+
+let mapleader = '-'
+let NERDTreeIgnore=['\.pyc$']
+nnoremap <Leader>f :NERDTreeToggle<Enter>
+" au vimenter * NERDTree

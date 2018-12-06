@@ -1,1 +1,1 @@
-call TabTabs()
+call IndentStyle("tab")

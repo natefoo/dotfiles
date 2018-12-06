@@ -11,39 +11,48 @@ set autoindent
 
 set textwidth=120
 
-function TwoSpaceTabs()
-    set tabstop=2
-    set shiftwidth=2
-    set softtabstop=2
-    set expandtab
-    set smarttab
+" Set the indentation style
+" arg 0 = ["space", "tab"], default = "space"
+" arg 1 = width of tab
+function IndentStyle(...)
+    let a:style = get(a:, 1, "space")
+    if a:style == "space"
+        let a:width = get(a:, 2, 4)
+        let &softtabstop=a:width
+        set expandtab
+        set smarttab
+    elseif a:style == "tab"
+        let a:width = get(a:, 2, 8)
+        let &softtabstop=0
+        set noexpandtab
+        set nosmarttab
+    endif
+    let &tabstop=a:width
+    let &shiftwidth=a:width
     "set smartindent
 endfunction
 
-function SpaceTabs()
-    set tabstop=4
-    set shiftwidth=4
-    set softtabstop=4
-    set expandtab
-    set smarttab
-    "set smartindent
+" DetectIndent and sleuth are more opinionated and heavy than my needs dictate, especially since I only plan to use this
+" with *.c files. Just count the number of tabs and decide based on that (ftplugin file types will override the default)
+function TabDetect(...)
+    let a:mintabs = get(a:, 1, 0)
+    redir => tabcount
+    %s/\t//gne
+    redir END
+    " second half of the condition tests if the buffer is empty (new)
+    if (tabcount != '' && split(tabcount)[0] > a:mintabs) || (line('$') == 1 && getline(1) == '')
+        call IndentStyle("tab")
+    else
+        call IndentStyle("space")
+    endif
 endfunction
 
-function TabTabs()
-    set tabstop=8
-    set shiftwidth=8
-    set softtabstop=0
-    set noexpandtab
-    set nosmarttab
-    "set nosmartindent
-endfunction
-
-function SwitchTabType()
+function SwitchIndentStyle()
     if &expandtab == "noexpandtab"
-        call SpaceTabs()
+        call IndentStyle("space")
         echo "Now using SpaceTabs"
     else
-        call TabTabs()
+        call IndentStyle("tab")
         echo "Now using TabTabs"
     endif
 endfunction
@@ -69,13 +78,14 @@ function ToggleWrap()
 endfunction
 
 map <F5> :call ToggleWrap()<CR>
-map <F4> :call SwitchTabType()<CR>
+map <F4> :call SwitchIndentStyle()<CR>
 map <F3> :call SwitchPasteMode()<CR>
 
 " The TouchBar MBP arrows are awful
-imap \\\ <esc>
+"imap \\\ <esc>
 
-call SpaceTabs()
+" Default all files to Python-style indentation
+call IndentStyle()
 
 " Stolen from Fedora
 " Only do this part when compiled with support for autocommands
@@ -95,6 +105,13 @@ au BufReadCmd *.odt,*.ott,*.ods,*.ots,*.odp,*.otp,*.odg,*.otg call zip#Browse(ex
 "set hidden
 
 let mapleader = '-'
+
 let NERDTreeIgnore=['\.pyc$']
-nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <Leader>f :NERDTreeFocus<Enter>
+nnoremap <Leader>r :NERDTreeFind<Enter>
 " au vimenter * NERDTree
+
+" local inclusions
+if filereadable(expand('~/.vimrc.local'))
+    source ~/.vimrc.local
+endif

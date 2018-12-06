@@ -1,1 +1,1 @@
-call SpaceTabs()
+call IndentStyle("space", 4)

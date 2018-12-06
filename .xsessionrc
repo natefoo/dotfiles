@@ -14,6 +14,6 @@ setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_
 case ${HOST:-$(hostname -s)} in
     weyerbacher.bx.psu.edu|weyerbacher)
         PATH="$HOME/bin:$PATH"
-        xrandr --output DP-2 --left-of DP-1 #--rotate left
+        xrandr --output DP-2 --left-of DP-1 --rotate right
         ;;
 esac

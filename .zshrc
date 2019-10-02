@@ -129,6 +129,9 @@ unlog() {
     set_afsid
 }
 
+## rxvt-unicode-256color terminfo isn't available on EL7
+[ "$TERM" = 'rxvt-unicode-256color' ] && ! infocmp >/dev/null 2>&1 && TERM='rxvt-256color'
+
 ## Prompt magic
 KENV='default'
 [ -z "$KRB5PRINC" ] && set_krb5princ

@@ -9,7 +9,7 @@
 setxkbmap -option compose:ralt
 
 # make Caps Lock a Ctrl key and make Ctrl_L a Super key
-setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
+#setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
 
 case ${HOST:-$(hostname -s)} in
     weyerbacher.bx.psu.edu|weyerbacher)

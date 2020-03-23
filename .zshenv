@@ -102,11 +102,12 @@ esac
 [ -f /etc/os-release ] && eval $(sed -re 's/(^[A-Z_]+)(=.*)/OS_RELEASE_\1\2/' /etc/os-release)
 
 venvsetup() {
-    local tmpdir=$(mktemp -d)
-    curl https://files.pythonhosted.org/packages/37/db/89d6b043b22052109da35416abc3c397655e4bd3cff031446ba02b9654fa/virtualenv-16.4.3.tar.gz | tar zxf - -C "$tmpdir"
-    python $tmpdir/virtualenv-16.4.3/virtualenv.py $HOME/.venvwrapper
-    [ -d "$tmpdir" ] && rm -rf "$tmpdir"
-    $HOME/.venvwrapper/bin/pip install virtualenv virtualenvwrapper
+    #local tmpdir=$(mktemp -d)
+    #curl https://pypi.python.org/packages/d4/0c/9840c08189e030873387a73b90ada981885010dd9aea134d6de30cd24cb8/virtualenv-15.1.0.tar.gz | tar zxf - -C "$tmpdir"
+    #python $tmpdir/virtualenv-15.1.0/virtualenv.py $HOME/.venvwrapper
+    python3 -m venv $HOME/.venvwrapper
+    #[ -d "$tmpdir" ] && rm -rf "$tmpdir"
+    $HOME/.venvwrapper/bin/pip install virtualenvwrapper
     [ -d "$HOME/bin" ] || mkdir "$HOME/bin"
     ln -s ../.venvwrapper/bin/virtualenv $HOME/bin
 }

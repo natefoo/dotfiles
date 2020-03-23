@@ -45,7 +45,8 @@ end
 beautiful.init(awful.util.getdir("config") .. "/themes/nate/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+--terminal = "x-terminal-emulator"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -347,9 +348,9 @@ globalkeys = awful.util.table.join(
               {description = "show the menubar", group = "launcher"}),
 
     -- Media hotkeys
-    awful.key({ }, "F7",                      function () awful.util.spawn("cmus-remote --prev") end),
-    awful.key({ }, "F8",                      function () awful.util.spawn("cmus-remote --pause") end),
-    awful.key({ }, "F9",                      function () awful.util.spawn("cmus-remote --next") end),
+    --awful.key({ }, "F7",                      function () awful.util.spawn("cmus-remote --prev") end),
+    --awful.key({ }, "F8",                      function () awful.util.spawn("cmus-remote --pause") end),
+    --awful.key({ }, "F9",                      function () awful.util.spawn("cmus-remote --next") end),
     awful.key({ }, "F10",                     function () awful.util.spawn("amixer set Master toggle") end),
     awful.key({ }, "F11",                     function () awful.util.spawn("amixer set Master 2dB-") end),
     awful.key({ }, "F12",                     function () awful.util.spawn("amixer set Master 2dB+") end)
@@ -568,3 +569,6 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- Prevent gigantic notification icons
+beautiful.notification_icon_size = 32

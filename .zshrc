@@ -16,7 +16,7 @@ fi
 # this was not initially necessary, but now it is
 if [ "$DISPLAY" = ':0' ]; then
     case $SHORTHOST in
-        weyerbacher|sokolov)
+        weyerbacher|sokolov|victory)
             export PASSWORD_STORE_X_SELECTION='primary'
             ;;
     esac

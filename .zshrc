@@ -303,30 +303,32 @@ function penv () {
     fi
 }
 
-if [ -z "$GPG_AGENT_INFO" ]; then
-    ## gpg-agent
-    gpg_hosts=(fanboy galaxy04)
-    gpg_agent_info="${HOME}/.gnupg/gpg-agent-info-$SHORTHOST"
-
-    # Not sure why this suddenly became neccessary on stretch, but ok
-    GPG_TTY=$(tty)
-    export GPG_TTY
-
-    start_gpg_agent() {
-        eval $(gpg-agent --daemon --write-env-file $gpg_agent_info --log-file ${HOME}/.gnupg/gpg-agent.log)
-    }
-
-    # http://stackoverflow.com/questions/5203665/zsh-check-if-string-is-in-array
-    if [[ ${gpg_hosts[(i)$SHORTHOST]} -le ${#gpg_hosts} ]]; then
-        if [ -f $gpg_agent_info ]; then
-            . $gpg_agent_info
-            export GPG_AGENT_INFO
-            [ "`ps -p ${(z)${(ps#:#)GPG_AGENT_INFO}[-2]} -o comm=`" != 'gpg-agent' ] && start_gpg_agent
-        else
-            start_gpg_agent
-        fi
-    fi
-fi
+# deprecated
+#if [ -z "$GPG_AGENT_INFO" ]; then
+#
+#    ## gpg-agent
+#    gpg_hosts=(fanboy galaxy04)
+#    gpg_agent_info="${HOME}/.gnupg/gpg-agent-info-$SHORTHOST"
+#
+#    # Not sure why this suddenly became neccessary on stretch, but ok
+#    GPG_TTY=$(tty)
+#    export GPG_TTY
+#
+#    start_gpg_agent() {
+#        eval $(gpg-agent --daemon --write-env-file $gpg_agent_info --log-file ${HOME}/.gnupg/gpg-agent.log)
+#    }
+#
+#    # http://stackoverflow.com/questions/5203665/zsh-check-if-string-is-in-array
+#    if [[ ${gpg_hosts[(i)$SHORTHOST]} -le ${#gpg_hosts} ]]; then
+#        if [ -f $gpg_agent_info ]; then
+#            . $gpg_agent_info
+#            export GPG_AGENT_INFO
+#            [ "`ps -p ${(z)${(ps#:#)GPG_AGENT_INFO}[-2]} -o comm=`" != 'gpg-agent' ] && start_gpg_agent
+#        else
+#            start_gpg_agent
+#        fi
+#    fi
+#fi
 
 ansible-env() {
     local env envs playbook playbooks

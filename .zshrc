@@ -31,20 +31,8 @@ alias lla="$LS -Fla"
 alias lh="$LS -Flh"
 alias lrt="$LS -Flhrt"
 alias lsd="$LS -Fld"
-alias r='screen -r'
-alias rd='screen -rd'
-alias aki='kinit ; aklog'
-alias akr='kinit -R ; aklog'
 
-# hg/galaxy aliases
-alias central='hg clone ssh://hg@bitbucket.org/galaxy/galaxy-central'
-alias qdiff='hg diff -r $(hg parents -r qbase --template "#rev#") -r qtip'
-alias stage='pass ansible/vault/usegalaxy | ansible-playbook -i stage/inventory galaxy.yml --vault-password-file=/bin/cat'
-alias prod='pass ansible/vault/usegalaxy | ansible-playbook -i production/inventory galaxy.yml --vault-password-file=/bin/cat'
-alias stagec='pass ansible/vault/usegalaxy | ansible-playbook -i stage/inventory galaxy_configs.yml --vault-password-file=/bin/cat'
-alias prodc='pass ansible/vault/usegalaxy | ansible-playbook -i production/inventory galaxy_configs.yml --vault-password-file=/bin/cat'
-alias stagep='pass ansible/vault/usegalaxy | ansible-playbook -i stage/inventory pulsar.yml --vault-password-file=/bin/cat'
-alias prodp='pass ansible/vault/usegalaxy | ansible-playbook -i production/inventory pulsar.yml --vault-password-file=/bin/cat'
+alias psuvpn="openconnect --script /usr/share/vpnc-scripts/vpnc-script https://vpn.its.psu.edu/"
 
 # slurm aliases
 # squeue default is: "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %R"

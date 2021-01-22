@@ -12,3 +12,5 @@
 	ui = auto
 [rerere]
 	enabled = false
+[pull]
+	ff = only

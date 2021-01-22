@@ -15,20 +15,20 @@ set textwidth=120
 " arg 0 = ["space", "tab"], default = "space"
 " arg 1 = width of tab
 function IndentStyle(...)
-    let a:style = get(a:, 1, "space")
-    if a:style == "space"
-        let a:width = get(a:, 2, 4)
-        let &softtabstop=a:width
+    let l:style = get(a:, 1, "space")
+    if l:style == "space"
+        let l:width = get(a:, 2, 4)
+        let &softtabstop=l:width
         set expandtab
         set smarttab
-    elseif a:style == "tab"
-        let a:width = get(a:, 2, 8)
+    elseif l:style == "tab"
+        let l:width = get(a:, 2, 8)
         let &softtabstop=0
         set noexpandtab
         set nosmarttab
     endif
-    let &tabstop=a:width
-    let &shiftwidth=a:width
+    let &tabstop=l:width
+    let &shiftwidth=l:width
     "set smartindent
 endfunction
 

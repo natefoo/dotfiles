@@ -32,7 +32,7 @@ alias lh="$LS -Flh"
 alias lrt="$LS -Flhrt"
 alias lsd="$LS -Fld"
 
-alias psuvpn="openconnect --script /usr/share/vpnc-scripts/vpnc-script https://vpn.its.psu.edu/"
+alias psuvpn="sudo openconnect --script /usr/share/vpnc-scripts/vpnc-script https://vpn.its.psu.edu/"
 
 # slurm aliases
 # squeue default is: "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %R"

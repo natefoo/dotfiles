@@ -33,6 +33,9 @@ alias lrt="$LS -Flhrt"
 alias lsd="$LS -Fld"
 
 alias psuvpn="sudo openconnect --script /usr/share/vpnc-scripts/vpnc-script https://vpn.its.psu.edu/"
+if [ "$TERM" = 'rxvt-unicode-256color' ]; then
+    alias ssh='TERM=rxvt-256color ssh'
+fi
 
 # slurm aliases
 # squeue default is: "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %R"
@@ -47,6 +50,45 @@ grepvi() {
 if [ -d "/usr/local/share/zsh/site-functions" ]; then
     fpath+=(/usr/local/share/zsh/site-functions)
 fi
+
+# Copy a file to X clipboard over ssh
+function sshxclip() {
+    local sel='clipboard'
+    case "$1" in
+        pri|primary)
+            sel='primary'
+            shift;
+            ;;
+        sec|secondary)
+            sel='secondary'
+            shift;
+            ;;
+        clip|clipboard)
+            shift;
+            ;;
+    esac
+    local arg="$1"
+    local host=${arg%%:*}
+    local file=${arg#*:}
+    local sel='clipboard'
+    shift;
+    set -o pipefail
+    case "$host" in
+        '')
+            echo "usage: $0 [pri|clip] <host:file|host command args ...>"
+            return 1
+            ;;
+        $file)
+            ssh $host "$@" | xclip -selection "$sel" || return 1
+            echo "copied \`ssh $host $@\` to selection '$sel'"
+            ;;
+        *)
+            ssh $host cat "$file" | xclip -selection clipboard || return 1
+            echo "copied $arg to selection '$sel'"
+            ;;
+    esac
+    set +o pipefail
+}
 
 # enable compsys completion.
 autoload -U compinit

@@ -26,3 +26,5 @@ URxvt.scrollTtyOutput: false
 
 URxvt*loginShell: true
 
+URxvt.perl-ext-common: ...,keyboard-select
+URxvt.keysym.M-Escape: perl:keyboard-select:activate

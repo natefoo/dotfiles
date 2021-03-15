@@ -81,6 +81,9 @@ map <F5> :call ToggleWrap()<CR>
 map <F4> :call SwitchIndentStyle()<CR>
 map <F3> :call SwitchPasteMode()<CR>
 
+map H :tabp<CR>
+map L :tabn<CR>
+
 " The TouchBar MBP arrows are awful
 "imap \\\ <esc>
 

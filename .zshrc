@@ -14,12 +14,8 @@ else
 fi
 
 # this was not initially necessary, but now it is
-if [ "$DISPLAY" = ':0' ]; then
-    case $SHORTHOST in
-        weyerbacher|sokolov|victory)
-            export PASSWORD_STORE_X_SELECTION='primary'
-            ;;
-    esac
+if [ "$SYS" = 'linux' ]; then
+    export PASSWORD_STORE_X_SELECTION='primary'
 fi
 
 # may not be suitable for all

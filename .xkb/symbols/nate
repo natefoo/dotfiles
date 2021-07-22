@@ -4,3 +4,9 @@ xkb_symbols "lctrl_super" {
     key <LCTL> { [ Super_L ] };
     modifier_map Mod4 { <LCTL> };
 };
+xkb_symbols "pgup_left" {
+    key <PGUP> { [ Left ] };
+};
+xkb_symbols "pgdn_right" {
+    key <PGDN> { [ Right ] };
+};

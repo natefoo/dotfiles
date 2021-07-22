@@ -1,2 +1,4 @@
 ! option = symbols
   nate:lctrl_super = +nate(lctrl_super)
+  nate:pgup_left = +nate(pgup_left)
+  nate:pgdn_right = +nate(pgdn_right)

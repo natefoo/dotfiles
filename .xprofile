@@ -1,0 +1,8 @@
+#
+# This is sourced by /etc/gdm3/Xsession
+#
+
+if [ -f /sys/class/dmi/id/product_version -a "$(cat /sys/class/dmi/id/product_version)" = 'lemp10' ]; then
+    # Make Caps Lock a Ctrl key, Ctrl_L a Super key, PgUp a Left key, and PgDn a Right key
+    setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)+nate(pgup_left)+nate(pgdn_right)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
+fi

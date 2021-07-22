@@ -1,2 +1,4 @@
 ! option
   nate:lctrl_super	Left Ctrl as Super
+  nate:pgup_left	PgUp as Left
+  nate:pgdn_right	PgDn as Right

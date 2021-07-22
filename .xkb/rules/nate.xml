@@ -10,5 +10,21 @@
         </configItem>
       </option>
     </group>
+    <group allowMultipleSelection="false">
+      <option>
+        <configItem>
+          <name>nate:pgup_left</name>
+          <description>Make PgUp an additional Left</description>
+        </configItem>
+      </option>
+    </group>
+    <group allowMultipleSelection="false">
+      <option>
+        <configItem>
+          <name>nate:pgdn_right</name>
+          <description>Make PgDn an additional Right</description>
+        </configItem>
+      </option>
+    </group>
   </optionList>
 </xkbConfigRegistry>

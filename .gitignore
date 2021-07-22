@@ -14,6 +14,7 @@
 !.gitmodules
 !.xkb/
 !.Xdefaults
+!.xprofile
 !.xsessionrc
 !.hgrc
 !.bash_profile

@@ -28,7 +28,7 @@ alias lh="$LS -Flh"
 alias lrt="$LS -Flhrt"
 alias lsd="$LS -Fld"
 
-alias psuvpn="sudo openconnect --script /usr/share/vpnc-scripts/vpnc-script https://vpn.its.psu.edu/"
+alias psuvpn="sudo openconnect --script /usr/share/vpnc-scripts/vpnc-script --protocol gp --user ndg1 https://secure-connect.psu.edu/"
 if [ "$TERM" = 'rxvt-unicode-256color' ]; then
     alias ssh='TERM=rxvt-256color ssh'
 fi

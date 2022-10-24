@@ -2,19 +2,32 @@
 # This is sourced by /etc/X11/Xsession.d/40x11-common_xsessionrc
 #
 
+: ${HOST:=$(hostname -s)}
+
+# TODO: can we just detect a sun keyboard here?
+
+# this clears the existing so has to come before the caps swap
+case $HOST in
+    weyerbacher*|sokolov*)
+        # Make Compose the Compose key
+        setxkbmap -option compose:menu
+        ;;
+    *)
+        # Make Alt_R the Compose key
+        setxkbmap -option compose:ralt
+        ;;
+esac
+
 # make the Caps Lock key an additional Super key
 #setxkbmap -option caps:super
 
-# Make Alt_R the Compose key
-#setxkbmap -option compose:ralt
-# Make Compose the Compose key
-setxkbmap -option compose:menu
-
 # make Caps Lock a Ctrl key and make Ctrl_L a Super key
-#setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
+# if there is a way to do this with just setxkbmap, i haven't found it.
+setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
 
-case ${HOST:-$(hostname -s)} in
-    weyerbacher.bx.psu.edu|weyerbacher)
+case $HOST in
+    weyerbacher*)
+        # does this work?
         PATH="$HOME/bin:$PATH"
         xrandr --output DP-2 --left-of DP-1 --rotate right
         ;;

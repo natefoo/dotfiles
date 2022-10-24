@@ -1,8 +1,34 @@
+# wild, just broken for years: https://bugs.launchpad.net/ubuntu/+source/xorg/+bug/1922414
 #
-# This is sourced by /etc/gdm3/Xsession
+# gdm3 (default under Pop!) runs /etc/gdm3/Xsession
+# lightdm runs /usr/sbin/lightdm-session
+# no idea who runs /etc/X11/Xsession
 #
+if ! type has_options 2>/dev/null; then
+    OPTIONFILE=/etc/X11/Xsession.options
 
-if [ -f /sys/class/dmi/id/product_version -a "$(cat /sys/class/dmi/id/product_version)" = 'lemp10' ]; then
-    # Make Caps Lock a Ctrl key, Ctrl_L a Super key, PgUp a Left key, and PgDn a Right key
-    setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)+nate(pgup_left)+nate(pgdn_right)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
+    OPTIONS="$(
+      if [ -r "$OPTIONFILE" ]; then
+        cat "$OPTIONFILE"
+      fi
+      if [ -d /etc/X11/Xsession.options.d ]; then
+        run-parts --list --regex '\.conf$' /etc/X11/Xsession.options.d | xargs -d '\n' cat
+      fi
+    )"
+
+    has_option() {
+      # Ensure that a later no-foo overrides an earlier foo
+      if [ "$(echo "$OPTIONS" | grep -Eo "^(no-)?$1\>" | tail -n 1)" = "$1" ]; then
+        return 0
+      else
+        return 1
+      fi
+    }
+
 fi
+
+# don't want this after all (plus, turns out it doesn't work)
+#if [ -f /sys/class/dmi/id/product_version -a "$(cat /sys/class/dmi/id/product_version)" = 'lemp10' ]; then
+#    # Make Caps Lock a Ctrl key, Ctrl_L a Super key, PgUp a Left key, and PgDn a Right key
+#    setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)+nate(pgup_left)+nate(pgdn_right)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
+#fi

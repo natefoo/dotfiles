@@ -29,9 +29,12 @@ alias lrt="$LS -Flhrt"
 alias lsd="$LS -Fld"
 
 alias psuvpn="sudo openconnect --script /usr/share/vpnc-scripts/vpnc-script --protocol gp --user ndg1 https://secure-connect.psu.edu/"
-if [ "$TERM" = 'rxvt-unicode-256color' ]; then
-    alias ssh='TERM=rxvt-256color ssh'
-fi
+
+case "$TERM" in
+    rxvt-unicode-256color|alacritty)
+        alias ssh='TERM=rxvt-256color ssh'
+        ;;
+esac
 
 # slurm aliases
 # squeue default is: "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %R"
@@ -163,7 +166,7 @@ KENV='default'
 [ -z "$KRB5PRINC" ] && set_krb5princ
 [ -z "$AFSID" ] && set_afsid
 case "$TERM" in
-    xterm|xtermc|xterm-color|rxvt-unicode|linux|rxvt-unicode-256color|rxvt-256color|xterm-256color)
+    xterm|xtermc|xterm-color|rxvt-unicode|linux|rxvt-unicode-256color|rxvt-256color|xterm-256color|alacritty)
         precmd() {
             if [ -n "$TITLE" ]; then
                 print -Pn "\e]0;$TITLE: %n@%m: %~\a"

@@ -17,9 +17,12 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.master_width_factor = 0.3
+theme.master_width_factor = 0.5
 theme.master_count = 1
-theme.column_count = 3
+theme.column_count = 2
+-- good for large screens, not so much for small ones
+--theme.master_width_factor = 0.3
+--theme.column_count = 3
 theme.useless_gap   = 0
 theme.border_width  = 1
 theme.border_normal = "#222222"

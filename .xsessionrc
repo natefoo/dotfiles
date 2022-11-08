@@ -2,6 +2,9 @@
 # This is sourced by /etc/X11/Xsession.d/40x11-common_xsessionrc
 #
 
+# Prevent gpg-agent from acting as the ssh-agent
+unset SSH_AUTH_SOCK
+
 : ${HOST:=$(hostname -s)}
 
 # TODO: can we just detect a sun keyboard here?

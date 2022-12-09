@@ -1,22 +1,2 @@
-# Clever: https://stackoverflow.com/questions/21266948/use-git-to-manage-home-directory
-
-# Ignore everything
-*
-
-# But not these files...
-!.gnupg
-!.vimrc
-!.vim/
-!.zshrc
-!.zshenv
-!.gitignore
-!.gitconfig
-!.gitmodules
-!.xkb/
-!.Xdefaults
-!.xprofile
-!.xsessionrc
-!.hgrc
-!.bash_profile
-!.bashrc
-!.config/awesome/
+*.sw?
+.vim/.netrwhist

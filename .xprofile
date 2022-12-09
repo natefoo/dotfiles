@@ -24,8 +24,12 @@ if ! type has_options 2>/dev/null; then
         return 1
       fi
     }
-
 fi
+
+#if [ -f "$HOME/.config/systemd/user/xss-lock.service" ]; then
+#    systemctl --user import-environment XDG_SESSION_ID
+#    systemctl --user start xss-lock.service
+#fi
 
 # don't want this after all (plus, turns out it doesn't work)
 #if [ -f /sys/class/dmi/id/product_version -a "$(cat /sys/class/dmi/id/product_version)" = 'lemp10' ]; then

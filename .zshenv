@@ -23,7 +23,8 @@ munge_path() {
         path)
             # $path is a zsh-specific builtin of $PATH as an array
             # ${(@M) ... :#$ne} - find anything that matches $ne
-            if [ -z ${(@M)path:#$ne} ]; then
+            local matches=(${(@M)path:#$ne})
+            if [ ${#matches[@]} -eq 0 ]; then
                 [ ! -d $ne -a ! -h $ne ] && continue
                 case "$op" in
                     prepend)
@@ -71,6 +72,9 @@ LS='ls'
 # of $PATH. I don't know why Molecule does this, it's the first time I've ever encountered a program that execs $SHELL
 # instead of explicitly calling sh or bash.
 #PATH='/usr/bin'
+
+# Something on a jammy update is prepending ~/bin 3 times before the shell even starts, so unique the path
+path=(${(@u)path[@]})
 
 case "$SYS" in
     linux)

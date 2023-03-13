@@ -1,6 +1,7 @@
 [user]
 	name = Nate Coraor
 	email = nate@bx.psu.edu
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFH54+qZEBeU5uwIeWWOViLcC509qxoRW6oN0VHRQr4r nate@treehouse
 [push]
 	default = simple
 [alias]
@@ -16,3 +17,9 @@
 	ff = only
 [init]
 	defaultBranch = main
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[gpg "ssh"]
+	allowedSignersFile = /home/nate/.gitallowedsigners

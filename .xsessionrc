@@ -7,26 +7,22 @@ unset SSH_AUTH_SOCK
 
 : ${HOST:=$(hostname -s)}
 
-# TODO: can we just detect a sun keyboard here?
-
-# this clears the existing so has to come before the caps swap
-case $HOST in
-    weyerbacher*|sokolov*)
+case $(lsusb) in
+    *'Type 6 Keyboard'*|*'Arduino Micro'*)
         # Make Compose the Compose key
         setxkbmap -option compose:menu
         ;;
     *)
         # Make Alt_R the Compose key
         setxkbmap -option compose:ralt
+        # make Caps Lock a Ctrl key and make Ctrl_L a Super key
+        # if there is a way to do this with just setxkbmap, i haven't found it.
+        setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
         ;;
 esac
 
 # make the Caps Lock key an additional Super key
 #setxkbmap -option caps:super
-
-# make Caps Lock a Ctrl key and make Ctrl_L a Super key
-# if there is a way to do this with just setxkbmap, i haven't found it.
-setxkbmap -print | sed -e '/xkb_symbols/ s/"\(.*\)"/"\1+ctrl(nocaps)+nate(lctrl_super)"/' | xkbcomp -I$HOME/.xkb - $DISPLAY 2>/dev/null
 
 case $HOST in
     weyerbacher*)

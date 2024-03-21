@@ -30,6 +30,8 @@ alias lsd="$LS -Fld"
 
 alias psuvpn="sudo openconnect --script /usr/share/vpnc-scripts/vpnc-script --protocol gp --user ndg1 https://secure-connect.psu.edu/"
 
+alias lock='i3lock -c 000000'
+
 case "$TERM" in
     rxvt-unicode-256color|alacritty)
         alias ssh='TERM=rxvt-256color ssh'
@@ -400,9 +402,6 @@ ansible-env() {
     playbook=env/${env}/${op}.yml
     pass ansible/vault/${parent} | ansible-playbook -i env/${env}/inventory $playbook --vault-password=/bin/cat "$@"
 }
-
-# travis autocompletion (if installed)
-[ -f /home/nate/.travis/travis.sh ] && source /home/nate/.travis/travis.sh
 
 # Multi conda install
 CONDAS_HOME="$HOME/.condas"

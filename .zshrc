@@ -122,7 +122,9 @@ set_krb5princ() {
 
 set_afsid() {
     AFSID=
-    [ -d /afs ] && AFSID=$(tokens | awk '$2 == "(AFS" {print $4}' | awk -F')' '{print $1}')
+    if [ -d /afs ] && command -v tokens; then
+       AFSID=$(tokens | awk '$2 == "(AFS" {print $4}' | awk -F')' '{print $1}')
+    fi
 }
 
 ## Override commands
@@ -168,7 +170,7 @@ KENV='default'
 [ -z "$KRB5PRINC" ] && set_krb5princ
 [ -z "$AFSID" ] && set_afsid
 case "$TERM" in
-    xterm|xtermc|xterm-color|rxvt-unicode|linux|rxvt-unicode-256color|rxvt-256color|xterm-256color|alacritty)
+    xterm|xtermc|xterm-color|rxvt-unicode|linux|rxvt-unicode-256color|rxvt-256color|xterm-256color|alacritty|screen)
         precmd() {
             if [ -n "$TITLE" ]; then
                 print -Pn "\e]0;$TITLE: %n@%m: %~\a"

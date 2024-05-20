@@ -28,7 +28,8 @@ alias lh="$LS -Flh"
 alias lrt="$LS -Flhrt"
 alias lsd="$LS -Fld"
 
-alias psuvpn="sudo openconnect --script /usr/share/vpnc-scripts/vpnc-script --protocol gp --user ndg1 https://secure-connect.psu.edu/"
+# if the gateway address changes you should be able to get the current ones by running `gp-saml-gui -S secure-connect.psu.edu`
+alias psuvpn="$HOME/.virtualenvs/gp-saml-gui/bin/gp-saml-gui -S --gateway us-east-g-pennstat.gposy5j2csn2.gw.gpcloudservice.com"
 
 alias lock='i3lock -c 000000'
 
@@ -144,23 +145,23 @@ _kcmd() {
     esac
 }
 
-kinit() {
-    _kcmd kinit --no-afslog "$@"
-}
-
-kdestroy() {
-    _kcmd kdestroy --no-unlog "$@"
-}
-
-aklog() {
-    `whence -p aklog` "$@"
-    set_afsid
-}
-
-unlog() {
-    `whence -p unlog` "$@"
-    set_afsid
-}
+#kinit() {
+#    _kcmd kinit --no-afslog "$@"
+#}
+#
+#kdestroy() {
+#    _kcmd kdestroy --no-unlog "$@"
+#}
+#
+#aklog() {
+#    `whence -p aklog` "$@"
+#    set_afsid
+#}
+#
+#unlog() {
+#    `whence -p unlog` "$@"
+#    set_afsid
+#}
 
 ## rxvt-unicode-256color terminfo isn't available on EL7
 [ "$TERM" = 'rxvt-unicode-256color' ] && ! infocmp >/dev/null 2>&1 && TERM='rxvt-256color'

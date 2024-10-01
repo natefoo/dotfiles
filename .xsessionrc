@@ -25,15 +25,15 @@ esac
 #setxkbmap -option caps:super
 
 case $HOST in
-    weyerbacher*)
+    alchemist*)
         # does this work?
         PATH="$HOME/bin:$PATH"
-        xrandr --output DP-2 --left-of DP-1 --rotate right
+        xrandr --output DP-4 --left-of DP-2 --rotate right
         ;;
 esac
 
 # Trackpad settings
-if xinput --list | grep -q Touchpad; then
+if command -v xinput && xinput --list | grep -q Touchpad; then
     touchpad_name=$(xinput --list --name-only | grep Touchpad | head -1)
     # two finger right click, three finger middle click
     xinput --set-prop "$touchpad_name" 'libinput Click Method Enabled' 0 1

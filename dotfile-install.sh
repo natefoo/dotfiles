@@ -60,6 +60,9 @@ function makelink() {
         log_exec mkdir -p "$(dirname "$link_name")"
     fi
     if [ ! -h "$link_name" ]; then
+        if [ -f "$link_name" ]; then
+            log_exec mv "$link_name" "${link_name}.dotfiles-bk"
+        fi
         log_exec ln -s "$target" "$link_name"
     fi
 }

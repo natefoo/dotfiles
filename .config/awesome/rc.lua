@@ -11,6 +11,9 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
+-- Battery widget module
+local battery_widget = require("battery-widget")
+
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -232,6 +235,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
+            battery_widget {},
             mytextclock,
             s.mylayoutbox,
         },
@@ -578,3 +582,14 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Prevent gigantic notification icons
 beautiful.notification_icon_size = 32
+
+-- Instanciate and add widget to the wibox:
+--wibox:setup {
+--    ...,
+--    { -- Right widgets
+--        ...,
+--        battery_widget {
+--            -- pass options here
+--        },
+--    },
+--}

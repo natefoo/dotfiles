@@ -407,5 +407,10 @@ function _useconda_complete {
 
 compctl -K _useconda useconda
 
+if command -v zoxide >/dev/null; then
+    eval "$(zoxide init zsh)"
+    alias cd=z
+fi
+
 # read host-local stuff
 [ -f "$HOME/.zshrc.local" ] && . $HOME/.zshrc.local

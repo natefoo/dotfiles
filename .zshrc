@@ -421,5 +421,23 @@ if command -v zoxide >/dev/null; then
     alias cd=z
 fi
 
+function oath() {
+    local OPTIND opt
+    local clip=false
+    while getopts "c" opt; do
+        case "$opt" in
+            c)
+                clip=true
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+    if $clip; then
+        ykman oath accounts code -s "$1" | xclip -selection primary
+    else
+        ykman oath accounts code -s "$1"
+    fi
+}
+
 # read host-local stuff
 [ -f "$HOME/.zshrc.local" ] && . $HOME/.zshrc.local

@@ -28,8 +28,17 @@ alias lh="$LS -Flh"
 alias lrt="$LS -Flhrt"
 alias lsd="$LS -Fld"
 
-# if the gateway address changes you should be able to get the current ones by running `gp-saml-gui -S secure-connect.psu.edu`
-alias psuvpn="$HOME/.virtualenvs/gp-saml-gui/bin/gp-saml-gui -S --gateway us-east-g-pennstat.gposy5j2csn2.gw.gpcloudservice.com"
+# if the gateway address changes you should be able to get the current ones by running `gp-saml-gui -S secure-connect.psu.edu`:
+#  US-Central (Chicago)** (us-east-chi-pennstat.gposy5j2csn2.gw.gpcloudservice.com)
+#  US West (us-west-g-pennstat.gposy5j2csn2.gw.gpcloudservice.com)
+#  US East (us-east-g-pennstat.gposy5j2csn2.gw.gpcloudservice.com)
+#  US Central (us-central-g-pennstat.gposy5j2csn2.gw.gpcloudservice.com)
+#  US South (us-south-pennstat.gposy5j2csn2.gw.gpcloudservice.com)
+#  FacStaff Internal (facstaff.ig.vpn.psu.edu)
+#alias psuvpn="$HOME/.virtualenvs/gp-saml-gui/bin/gp-saml-gui -S --gateway us-east-g-pennstat.gposy5j2csn2.gw.gpcloudservice.com"
+#alias psuvpn="gp-saml-gui -S --gateway us-east-g-pennstat.gposy5j2csn2.gw.gpcloudservice.com"
+# until PSU's GP server supports TLSv1.3: https://github.com/dlenski/gp-saml-gui/issues/116
+alias psuvpn="OPENSSL_CONF=$HOME/.config/gp-saml-gui/openssl.cnf gp-saml-gui -S --gateway us-east-g-pennstat.gposy5j2csn2.gw.gpcloudservice.com"
 
 alias lock='i3lock -c 000000'
 

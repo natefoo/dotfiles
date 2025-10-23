@@ -1,0 +1,12 @@
+# for when your super secure palo alto globalprotect vpn doesn't support TLSv1.3
+# https://github.com/dlenski/gp-saml-gui/issues/116
+openssl_conf = openssl_init
+
+[openssl_init]
+ssl_conf = ssl_sect
+
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+Options = UnsafeLegacyRenegotiation

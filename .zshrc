@@ -424,6 +424,10 @@ fi
 function oath() {
     local OPTIND opt
     local clip=false
+    if [[ -z $1 ]]; then
+        ykman oath accounts list
+        return
+    fi
     while getopts "c" opt; do
         case "$opt" in
             c)
